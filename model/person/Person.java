@@ -11,7 +11,13 @@ public abstract class Person {
     private String email;
     private final LocalDate dateOfBirth;
 
-    protected Person(int id, String fullName, String address, String phone, String email, LocalDate dateOfBirth) {
+    public Person(int id, String fullName, String address, String phone, String email, LocalDate dateOfBirth) {
+        if(id < 0){
+            throw new IllegalAccessError("ID must be positive");
+        }
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("Email should contain @ symbol");
+        }
         this.id = id;
         this.fullName = fullName;
         this.address = address;
@@ -20,12 +26,17 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    protected Person(int id, String fullName, LocalDate dateOfBirth) {
+    public Person(int id, String fullName, LocalDate dateOfBirth) {
+        if(id < 0){
+            throw new IllegalAccessError("ID must be positive");
+        }
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("Email should contain @ symbol");
+        }
         this.id = id;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
     }
-
     // Getters
     public int getId() { return id; }
     public String getFullName() { return fullName; }
@@ -41,7 +52,12 @@ public abstract class Person {
     // Setters
     public void setAddress(String address) { this.address = address; }
     public void setPhone(String phone) { this.phone = phone; }
-    public void setEmail(String email) { this.email = email; }
+    public void setEmail(String email) { 
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("Email should contain @ symbol");
+        }
+        this.email = email; 
+    }
 
     @Override
     public boolean equals(Object o) {
